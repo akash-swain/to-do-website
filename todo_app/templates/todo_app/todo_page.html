@@ -1,0 +1,61 @@
+<!-- <h1>Test</h1> -->
+
+
+<!DOCTYPE html>
+{% load static %}
+<html lang="en" dir="ltr">
+    <head>
+        <meta charset="utf-8">
+        <title>TO-DO</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    </head>
+    <body>
+        <nav class="navbar sticky-top navbar-dark bg-dark">
+            <!-- navbar sticky-top navbar-light bg-light -->
+          <!-- Navbar content -->
+          <a class="navbar-brand navbar-fixed-top" href="#">
+              <img src="{% static 'todo_app/todo_logo.png' %}" width="50" height="30" alt="">My To-Do List
+        </a>
+        </nav>
+
+
+        <main role="main" class="container">
+        <!-- <div class="container"> -->
+        {% if todolist %}
+        <div class="jumbotron">
+        <ol class="list-group list-group-flush">
+        {% for i in todolist %}
+                <form class="form-inline" action="/delete_todo_page/{{ i.id }}/" method="post">
+                    {% csrf_token %}
+
+                      <li style= "font-size:20px;"><span style= "font-size:20px;">{{ i.content }}</span></li>
+                        <!-- <button class="btn btn-primary mb-2" type="submit">Delete</button> -->
+                        <div class="col-auto">
+                          <button type="submit" class="btn btn btn-danger mb-2">Delete</button>
+                        </div>
+
+                </form>
+        {% endfor %}
+        </ol>
+
+        </div>
+        {% else %}
+            <div class="jumbotron">
+            <h6 class="text-secondary">No items in To-Do List :)</h6>
+            </div>
+        {% endif %}
+        <label class="ml-3 text-secondary">  Add a new item: </label>
+        <form class= "form-inline" action="/add_todo_page/" method="post">{% csrf_token %}
+            <div class="col-auto">
+                <input class="form-control mb-2" type="text" name="content">
+                <button class="btn btn-primary mb-2" type="submit">Add</button>
+            </div>
+            </form>
+            <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+            <script src="{% static 'todo_app/strike.js' %}"></script>
+            <div>
+            </div>
+
+        </main>
+    </body>
+</html>
