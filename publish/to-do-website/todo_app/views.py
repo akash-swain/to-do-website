@@ -3,11 +3,7 @@ from .models import Todo
 
 # Create your views here.
 def TodoView(request):
-    query = request.GET.get("q")
-
     c1 = Todo.objects.all()
-    if query is not None:
-        c1 = c1.filter(content__icontains = query)
     return render(request, 'todo_app/todo_page.html', {"todolist": c1})
 
 
